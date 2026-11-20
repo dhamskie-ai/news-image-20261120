@@ -55,6 +55,8 @@ def validate_png(data: bytes) -> None:
             seen_ihdr = True
         if ctype == b"IEND":
             seen_iend = True
+            if length != 0:
+                raise ValueError("IEND chunk must be empty")
             if end != len(data):
                 raise ValueError("trailing bytes after IEND")
         pos = end
